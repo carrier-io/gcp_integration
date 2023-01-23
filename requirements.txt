@@ -1,0 +1,3 @@
+pydantic
+google-cloud-compute
+google-auth
