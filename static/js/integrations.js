@@ -56,7 +56,7 @@ const GCPIntegration = {
         </template>
         <template #footer>
             <test-connection-button
-                    :apiPath="api_base + 'check_settings/' + pluginName"
+                    :apiPath="this.$root.build_api_url('integrations', 'check_settings') + '/' + pluginName"
                     :error="error.check_connection"
                     :body_data="body_data"
                     v-model:is_fetching="is_fetching"
@@ -77,9 +77,6 @@ const GCPIntegration = {
         })
     },
     computed: {
-        apiPath() {
-            return this.api_base + 'integration/'
-        },
         project_id() {
             return getSelectedProjectId()
         },
@@ -91,7 +88,8 @@ const GCPIntegration = {
                 project_id,
                 description,
                 is_default,
-                status
+                status,
+                mode
             } = this
             return {
                 zone,
@@ -100,7 +98,8 @@ const GCPIntegration = {
                 project_id,
                 description,
                 is_default,
-                status
+                status,
+                mode
             }
         },
         modal() {
@@ -128,7 +127,7 @@ const GCPIntegration = {
         },
         create() {
             this.is_fetching = true
-            fetch(this.apiPath + this.pluginName, {
+            fetch(this.api_url + this.pluginName, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(this.body_data)
@@ -157,7 +156,7 @@ const GCPIntegration = {
         },
         update() {
             this.is_fetching = true
-            fetch(this.apiPath + this.id, {
+            fetch(this.api_url + this.id, {
                 method: 'PUT',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(this.body_data)
@@ -173,7 +172,7 @@ const GCPIntegration = {
         },
         delete() {
             this.is_fetching = true
-            fetch(this.apiPath + this.id, {
+            fetch(this.api_url + this.id, {
                 method: 'DELETE',
             }).then(response => {
                 this.is_fetching = false
@@ -228,8 +227,9 @@ const GCPIntegration = {
             error: {},
             id: null,
             pluginName: 'gcp_integration',
-            api_base: '/api/v1/integrations/',
+            api_url: V.build_api_url('integrations', 'integration') + '/',
             status: integration_status.success,
+            mode: V.mode
         })
     }
 }
