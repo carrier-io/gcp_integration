@@ -10,7 +10,8 @@ const GCPIntegration = {
         @drop.prevent="modal_style = {'height': '100px', 'border': ''}"
 >
     <ModalDialog
-            v-model:description="description"
+            v-model:name="config.name"
+            v-model:is_shared="config.is_shared"
             v-model:is_default="is_default"
             @update="update"
             @create="create"
@@ -86,7 +87,7 @@ const GCPIntegration = {
                 project,
                 service_account_info,
                 project_id,
-                description,
+                config,
                 is_default,
                 status,
                 mode
@@ -96,7 +97,7 @@ const GCPIntegration = {
                 project,
                 service_account_info,
                 project_id,
-                description,
+                config,
                 is_default,
                 status,
                 mode
@@ -117,8 +118,8 @@ const GCPIntegration = {
             Object.assign(this.$data, stateData)
         },
         handleEdit(data) {
-            const {description, is_default, id, settings} = data
-            this.load({...settings, description, is_default, id})
+            const {config, is_default, id, settings} = data
+            this.load({...settings, config, is_default, id})
             this.modal.modal('show')
         },
         handleDelete(id) {
@@ -223,7 +224,7 @@ const GCPIntegration = {
             service_account_info: "",
             is_default: false,
             is_fetching: false,
-            description: '',
+            config: {},
             error: {},
             id: null,
             pluginName: 'gcp_integration',
