@@ -12,7 +12,7 @@ class RPC:
 
     @web.rpc(f'backend_performance_test_create_integration_validate_{integration_name}')
     @rpc_tools.wrap_exceptions(ValidationError)
-    def backend_performance_test_create_integration_validate(self, data: dict,
+    def backend_performance_test_create_integration_validate(self, data: dict, project_id: int,
             pd_kwargs: Optional[dict] = None, **kwargs
     ) -> dict:
         if not pd_kwargs:
@@ -25,7 +25,7 @@ class RPC:
 
     @web.rpc(f'backend_performance_execution_json_config_{integration_name}')
     @rpc_tools.wrap_exceptions(RuntimeError)
-    def backend_make_execution_json_config(self, integration_data: dict) -> dict:
+    def backend_make_execution_json_config(self, integration_data: dict, project_id: int) -> dict:
         """ Prepare execution_json for this integration """
         return integration_data
 
@@ -44,6 +44,6 @@ class RPC:
 
     @web.rpc(f'ui_performance_execution_json_config_{integration_name}')
     @rpc_tools.wrap_exceptions(RuntimeError)
-    def ui_make_execution_json_config(self, integration_data: dict) -> dict:
+    def ui_make_execution_json_config(self, integration_data: dict, project_id: int) -> dict:
         """ Prepare execution_json for this integration """
         return integration_data
