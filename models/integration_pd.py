@@ -1,7 +1,7 @@
 import json
 from enum import Enum
 from json import JSONDecodeError
-from typing import Union
+from typing import Union, Optional
 
 from google.cloud import compute_v1
 from google.oauth2.service_account import Credentials
@@ -50,6 +50,7 @@ class InstanceType(str, Enum):
 
 class PerformanceBackendTestModel(IntegrationModel):
     id: int
+    project_id: Optional[int]
     cpu_cores_limit: int
     memory_limit: int
     concurrency: int
