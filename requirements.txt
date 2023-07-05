@@ -1,3 +1,2 @@
-pydantic
-google-cloud-compute
-google-auth
+google-cloud-compute-1.11.0
+google-auth==2.21.0
